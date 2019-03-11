@@ -142,8 +142,9 @@ class CraftTransformer extends Component implements TransformerInterface
                     $storageClass = ImagerService::$storage[$storage];
                     $result = $storageClass::upload($path, $uri, $isFinalVersion, $storageSettings);
 
-                    if (!$result) {
-                        // todo : delete transformed file. Assume that we'd want to try again.
+                    $remoteImageUrl = $config->getSetting('imagerUrl') . ltrim(FileHelper::normalizePath($uri), '/');
+                    if ((!$result || @getimagesize($remoteImageUrl))) {
+                        @unlink($path);
                     }
                 } else {
                     $msg = 'Could not find settings for storage "'.$storage.'"';

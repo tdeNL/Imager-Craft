@@ -143,7 +143,7 @@ class CraftTransformer extends Component implements TransformerInterface
                     $result = $storageClass::upload($path, $uri, $isFinalVersion, $storageSettings);
 
                     $remoteImageUrl = $config->getSetting('imagerUrl') . ltrim(FileHelper::normalizePath($uri), '/');
-                    if ((!$result || @getimagesize($remoteImageUrl))) {
+                    if ((!$result || !@getimagesize($remoteImageUrl))) {
                         @unlink($path);
                     }
                 } else {

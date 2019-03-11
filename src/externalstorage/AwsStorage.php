@@ -46,6 +46,7 @@ class AwsStorage implements ImagerStorageInterface
         }
         
         if (isset($settings['folder']) && $settings['folder'] !== '') {
+            $uri = explode('/imager', $uri)[1] ?? $uri;
             $uri = ltrim(FileHelper::normalizePath($settings['folder'].'/'.$uri), '/');
         }
 
